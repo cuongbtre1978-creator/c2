@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><title>Thí nghiệm: Phản ứng thủy phân tinh bột</title><style>
+:root{--bg:#020617;--panel:rgba(30,41,59,.88);--accent:#3b82f6;--ok:#10b981}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle,#1e1b4b,#020617);color:#f8fafc;font-family:Segoe UI,Tahoma,sans-serif;height:100vh;overflow:hidden}.app{display:flex;height:100%}.panel{width:390px;padding:18px;background:var(--panel);overflow:auto;border-right:1px solid #ffffff22}h1{font-size:20px;color:#60a5fa;text-align:center}.step{background:#0005;border-left:4px solid var(--accent);padding:12px;margin:10px 0;border-radius:8px}.step.off{opacity:.35;pointer-events:none}.step b{color:#93c5fd}.btn{border:0;border-radius:7px;background:var(--accent);color:white;padding:9px 13px;margin-top:8px;font-weight:700;cursor:pointer}.workspace{flex:1;position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:70px}.shelf{position:absolute;top:18px;right:18px;display:flex;gap:8px;flex-wrap:wrap;max-width:520px;background:#0006;padding:12px;border-radius:14px}.chem{padding:8px;border:1px solid #ffffff44;border-radius:8px;background:#ffffff12;cursor:pointer;font-size:12px;text-align:center}.chem.off{opacity:.3;pointer-events:none}.tube{width:64px;height:250px;border:4px solid #ffffff66;border-top:none;border-radius:0 0 32px 32px;position:relative;overflow:hidden;background:linear-gradient(90deg,#fff2,transparent,#fff3);z-index:4;transition:.5s}.liquid{position:absolute;bottom:0;width:100%;height:0;border-radius:0 0 28px 28px;transition:1.2s;background:#ffffff18}.precip{position:absolute;bottom:0;width:100%;height:0;opacity:0;transition:1.2s;border-radius:0 0 28px 28px;z-index:3}.bubbles{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}.bubble{position:absolute;bottom:8px;border:1.5px solid #dbeafe;background:#ffffff18;border-radius:50%;animation:rise 1.7s linear forwards}@keyframes rise{to{bottom:75%;opacity:0;transform:translateX(6px)}}.shake{animation:shake .25s 5}@keyframes shake{25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}.bath{position:absolute;width:300px;height:145px;bottom:48px;border:4px solid #bde3ff88;border-top:none;border-radius:0 0 48px 48px;background:linear-gradient(to top,#1594d766 0 68%,transparent 68%);display:none;z-index:2}.bath:after{content:'NƯỚC NÓNG';position:absolute;bottom:20px;width:100%;text-align:center;font-size:18px}.status{position:absolute;left:25px;bottom:20px;color:#cbd5e1}.intro{position:fixed;inset:0;background:#0f172af5;z-index:20;display:flex;align-items:center;justify-content:center}.card{max-width:620px;background:#1e293b;padding:26px;border-radius:16px;border:1px solid #3b82f6}.card h2{color:#60a5fa}.card li{margin:7px}.quiz{display:none;margin-top:10px;padding:10px;background:#10b98118;border-radius:7px}.quiz.show{display:block}.brick{background:linear-gradient(90deg,#7f1d1d,#dc3d20 45%,#9f2618 80%,#6b1c12)!important;box-shadow:inset 0 4px 10px #ff8a6588}.deepblue{background:linear-gradient(90deg,#0759c7,#0877e8 45%,#0052b5 82%,#063b8e)!important;box-shadow:inset 8px 0 12px #77c7ff55,inset -7px 0 10px #001f5e88}
+
+/* ===== Mobile responsive patch ===== */
+html,body{
+  width:100%;
+  min-height:100%;
+  height:auto;
+}
+body{
+  min-height:100dvh;
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-text-size-adjust:100%;
+  touch-action:manipulation;
+}
+.app{
+  min-height:100dvh;
+  height:auto;
+}
+.panel{
+  -webkit-overflow-scrolling:touch;
+}
+.btn,.chem{
+  touch-action:manipulation;
+}
+.btn{
+  min-height:44px;
+  font-size:15px;
+}
+
+@media (max-width: 900px){
+  .app{
+    display:block;
+    min-height:100dvh;
+  }
+
+  .panel{
+    width:100%;
+    height:auto;
+    max-height:none;
+    padding:14px;
+    border-right:0;
+    border-bottom:1px solid #ffffff22;
+    overflow:visible;
+  }
+
+  h1{font-size:18px}
+
+  .step{
+    font-size:14px;
+    line-height:1.5;
+    padding:10px;
+    margin:8px 0;
+  }
+
+  .workspace{
+    position:relative;
+    width:100%;
+    min-width:0;
+    height:68dvh;
+    min-height:500px;
+    padding-bottom:70px;
+    overflow:hidden;
+    align-items:flex-end;
+    justify-content:center;
+  }
+
+  .shelf{
+    left:8px;
+    right:8px;
+    top:8px;
+    max-width:none;
+    padding:8px;
+    gap:6px;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    z-index:30;
+  }
+
+  .chem{
+    min-width:104px;
+    font-size:11px;
+    padding:8px 9px;
+    white-space:normal;
+  }
+
+  .tube{
+    width:56px;
+    height:210px;
+    margin-bottom:8px;
+  }
+
+  .bath{
+    width:72%;
+    max-width:300px;
+    height:130px;
+    bottom:52px;
+  }
+
+  .bath:after{
+    font-size:15px;
+  }
+
+  .status{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    font-size:14px;
+    line-height:1.35;
+    padding:8px 10px;
+    border-radius:8px;
+    background:#020617cc;
+    z-index:40;
+    text-align:center;
+  }
+
+  .intro{
+    padding:14px;
+    overflow:auto;
+  }
+
+  .card{
+    width:100%;
+    max-width:560px;
+    padding:20px;
+    font-size:14px;
+    line-height:1.5;
+  }
+}
+
+@media (max-width: 480px){
+  .panel{
+    padding:12px;
+  }
+
+  .step{
+    font-size:13.5px;
+    padding:9px;
+  }
+
+  .workspace{
+    height:72dvh;
+    min-height:500px;
+  }
+
+  .chem{
+    min-width:96px;
+    font-size:10px;
+    padding:7px 8px;
+  }
+
+  .tube{
+    width:52px;
+    height:195px;
+  }
+
+  .bath{
+    width:78%;
+    height:120px;
+  }
+
+  .status{
+    font-size:13px;
+  }
+
+  .card{
+    padding:18px;
+    font-size:13.5px;
+  }
+}
+
+</style></head><body><div class="intro" id="intro"><div class="card"><h2>PHÒNG THÍ NGHIỆM ẢO</h2><h3>Phản ứng thủy phân tinh bột</h3><p><b>Hóa chất:</b> hồ tinh bột 1%, HCl 1 M, NaHCO₃ rắn, CuSO₄ 5%, NaOH 10%, nước nóng.</p><p><b>Mục tiêu:</b> Thủy phân tinh bột trong môi trường acid, trung hòa acid rồi nhận biết sản phẩm có tính khử bằng Cu(OH)₂ khi đun nóng.</p><button class="btn" onclick="start()">Bắt đầu thực hành</button></div></div><div class="app"><aside class="panel"><h1>SỔ TAY THÍ NGHIỆM</h1>
+<div class="step" id="s1"><b>Bước 1: Thủy phân tinh bột</b><p>Cho khoảng 5 mL hồ tinh bột 1% vào ống nghiệm, thêm khoảng 1 mL HCl 1 M và lắc đều.</p></div>
+<div class="step off" id="s2"><b>Bước 2: Đun cách thủy</b><p>Đặt ống nghiệm trong cốc nước nóng, đun cách thủy 10 phút, sau đó để nguội.</p><button class="btn" onclick="heat()">Đun cách thủy</button></div>
+<div class="step off" id="s3"><b>Bước 3: Trung hòa acid</b><p>Thêm từ từ NaHCO₃ đến khi ngừng sủi bọt khí CO₂.</p><div class="quiz" id="qco2">Quan sát: có nhiều bọt khí CO₂ nổi lên trong dung dịch và giảm dần khi HCl được trung hòa.</div></div>
+<div class="step off" id="s4"><b>Bước 4: Điều chế Cu(OH)₂</b><p>Ở ống nghiệm phản ứng: cho 2 mL NaOH 10%, sau đó 0,5 mL CuSO₄ 5%, lắc nhẹ để tạo kết tủa Cu(OH)₂ màu xanh.</p></div>
+<div class="step off" id="s5"><b>Bước 5: Nhận biết sản phẩm thủy phân</b><p>Cho khoảng 2 mL dung dịch sau thủy phân đã trung hòa vào Cu(OH)₂. Dung dịch tạo phức xanh thẫm. Sau đó đun cách thủy nước nóng khoảng 5 phút.</p><button class="btn" id="finalheat" style="display:none" onclick="finalHeat()">Đun nóng 5 phút</button><div class="quiz" id="qfinal"><b>Hiện tượng:</b> khi đun nóng xuất hiện kết tủa Cu₂O màu đỏ gạch. Điều đó cho thấy sau thủy phân đã tạo đường có tính khử.</div></div>
+<div class="step off" id="done"><b>Hoàn thành!</b><p>Tinh bột bị thủy phân trong môi trường acid tạo glucose; glucose khử Cu(II) trong môi trường kiềm khi đun nóng, tạo Cu₂O đỏ gạch.</p><button class="btn" onclick="location.reload()">Thực hiện lại</button></div></aside>
+<main class="workspace"><div class="shelf"><div class="chem" id="starch" onclick="add('starch')">Hồ tinh bột 1%</div><div class="chem off" id="hcl" onclick="add('hcl')">HCl 1 M</div><div class="chem off" id="nahco3" onclick="add('nahco3')">NaHCO₃</div><div class="chem off" id="naoh" onclick="add('naoh')">NaOH 10%</div><div class="chem off" id="cuso4" onclick="add('cuso4')">CuSO₄ 5%</div><div class="chem off" id="hydro" onclick="add('hydro')">Dung dịch sau thủy phân</div></div><div class="bath" id="bath"></div><div class="tube" id="tube"><div class="liquid" id="liq"></div><div class="precip" id="ppt"></div><div class="bubbles" id="bubs"></div></div><div class="status" id="status">Chọn hồ tinh bột 1%.</div></main></div><script>
+let state=0;const $=id=>document.getElementById(id),liq=$('liq'),ppt=$('ppt'),tube=$('tube');function start(){$('intro').style.display='none'}function on(id){$(id).classList.remove('off')}function off(id){$(id).classList.add('off')}function shake(){tube.classList.add('shake');setTimeout(()=>tube.classList.remove('shake'),1300)}function bubbles(){let n=0;let t=setInterval(()=>{for(let j=0;j<3;j++){let b=document.createElement('i');b.className='bubble';let z=5+Math.random()*8;b.style.width=b.style.height=z+'px';b.style.left=(8+Math.random()*45)+'px';$('bubs').appendChild(b);setTimeout(()=>b.remove(),1800)}if(++n>12)clearInterval(t)},180)}
+function add(c){if(c==='starch'&&state===0){liq.style.height='38%';liq.style.background='rgba(245,245,235,.82)';off('starch');on('hcl');state=1;$('status').textContent='Thêm HCl 1 M.'}else if(c==='hcl'&&state===1){liq.style.height='45%';shake();off('hcl');on('s2');state=2;$('status').textContent='Đun cách thủy 10 phút.'}else if(c==='nahco3'&&state===3){bubbles();$('qco2').classList.add('show');off('nahco3');on('s4');on('naoh');state=4;$('status').textContent='CO₂ đang sủi bọt; tiếp theo điều chế Cu(OH)₂.'}else if(c==='naoh'&&state===4){liq.style.height='20%';liq.style.background='#ffffff18';off('naoh');on('cuso4');state=5;$('status').textContent='Thêm CuSO₄ 5%.'}else if(c==='cuso4'&&state===5){liq.style.height='26%';ppt.style.height='22%';ppt.style.opacity='1';ppt.style.background='#67b7ed';shake();off('cuso4');on('hydro');state=6;$('status').textContent='Thêm 2 mL dung dịch sau thủy phân.'}else if(c==='hydro'&&state===6){liq.style.height='48%';ppt.style.opacity='0';setTimeout(()=>ppt.style.height='0',700);liq.className='liquid deepblue';shake();off('hydro');on('s5');$('finalheat').style.display='inline-block';state=7;$('status').textContent='Phức xanh thẫm đã tạo thành. Hãy đun nóng.'}}
+function heat(){if(state!==2)return;$('bath').style.display='block';tube.style.transform='translateY(18px)';$('status').textContent='Đang mô phỏng đun cách thủy 10 phút…';setTimeout(()=>{tube.style.transform='';$('bath').style.display='none';off('s2');on('s3');on('nahco3');state=3;$('status').textContent='Đã để nguội. Thêm từ từ NaHCO₃.'},2600)}
+function finalHeat(){if(state!==7)return;$('finalheat').disabled=true;$('bath').style.display='block';tube.style.transform='translateY(18px)';$('status').textContent='Đang đun nóng: Cu₂O đỏ gạch hình thành…';setTimeout(()=>{liq.style.background='rgba(210,235,255,.22)';ppt.className='precip brick';ppt.style.height='25%';ppt.style.opacity='1';$('qfinal').classList.add('show');tube.style.transform='';$('bath').style.display='none';on('done');state=8;$('status').textContent='Xuất hiện kết tủa Cu₂O màu đỏ gạch.'},2800)}
+</script></body></html>
